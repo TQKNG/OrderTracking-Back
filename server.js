@@ -7,7 +7,10 @@ const TrackingService = require('./routes/TrackingRoute')
 const mongoose = require('mongoose');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:['http://localhost:3000','https://ordertracking-app.vercel.app'],
+    credentials:true,
+}));
 app.use('/',TrackingService)
 
 app.get('/',(req,res)=>{
