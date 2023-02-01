@@ -58,7 +58,7 @@ route.put("/api/tracking/:id", (req, res) => {
 });
 
 // email route
-route.post("/api/tracking/contact", async(req, res, next) => {
+route.post("/api/tracking/contact", async(req, res) => {
   const{email, message} = req.body;
 
   var mail = {
@@ -69,38 +69,13 @@ route.post("/api/tracking/contact", async(req, res, next) => {
   };
 
   // // Send Mail
-  await sendEmail(mail, (err, data) => {
-      if (err) {
-        res.status(500).json("Error during sending")
-        reject();
-      } else {
-       res.status(200).json("Successful send the email")
-        resolve();
-      }
-  
-      // Send auto-reply mail
-      // sendEmail(
-      //   {
-      //     from: process.env.EMAIL_USER,
-      //     to: email,
-      //     subject: "Thank you for your email",
-      //     html: `<span>Dear Value Customer, </span>
-      //       <p>Order Tracking App has received your email.
-      //       Our Transportation Service team will get back to you in 24 hours
-      //       </p>
-      //       <h5>Best regards</h5>
-      //       <h5>Order Tracking Management Team</h5>
-      //     `,
-      //   },
-      //   (err, info) => {
-      //     if (err) {
-      //       console.log(err);
-      //     } else {
-      //       console.log(`Message sent: ${info.response}`);
-      //     }
-      //   }
-      // );
-    });
+  try{
+    await sendEmail(mail);
+    res.status(200).json({success:true, message: "Email sent"});
+  }
+  catch(err){
+    throw Error('Email not sent please try again')
+  }
 });
 
 
