@@ -58,7 +58,7 @@ route.put("/api/tracking/:id", (req, res) => {
 });
 
 // email route
-route.post("/api/tracking/contact", (req, res, next) => {
+route.post("/api/tracking/contact", async(req, res, next) => {
   const{email, message} = req.body;
 
   var mail = {
@@ -69,7 +69,7 @@ route.post("/api/tracking/contact", (req, res, next) => {
   };
 
   // // Send Mail
-  transporter.sendMail(mail, (err, data) => {
+  await transporter.sendMail(mail, async(err, data) => {
     if (err) {
       res.status(500).json("Error during sending")
     } else {
@@ -77,7 +77,7 @@ route.post("/api/tracking/contact", (req, res, next) => {
     }
 
     // Send auto-reply mail
-    transporter.sendMail(
+    await transporter.sendMail(
       {
         from: process.env.EMAIL_USER,
         to: email,
