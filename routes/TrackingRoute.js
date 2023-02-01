@@ -60,17 +60,14 @@ route.put("/api/tracking/:id", (req, res) => {
 // email route
 route.post("/api/tracking/contact", async(req, res) => {
   const{email, message} = req.body;
-
-  var mail = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject: `New Message from ${email} Contact Form`,
-    content: message,
-  };
-
+  const send_to = process.env.EMAIL_USER;
+  const sent_from = process.env.EMAIL_USER;
+  const reply_to = email;
+  const subject = `New Message from ${email} Contact Form`;
+    
   // // Send Mail
   try{
-    await sendEmail(mail);
+    await sendEmail(subject, message, send_to, sent_from, reply_to);
     res.status(200).json({success:true, message: "Email sent"});
   }
   catch(err){

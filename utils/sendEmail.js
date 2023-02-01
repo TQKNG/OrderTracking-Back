@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
+const { translateAliases } = require('../models/trackingModel');
 
 // Configure transport
-const sendEmail = async(mail)=>{
+const sendEmail = async(subject, message, send_to, sent_from, reply_to)=>{
     var transport = {
         host: process.env.EMAIL_HOST,
         port: 587,
@@ -11,22 +12,25 @@ const sendEmail = async(mail)=>{
         }
     }
     
+    // Option for sending email
+    const options ={
+        from: sent_from,
+        to: send_to,
+        replyTo: reply_to,
+        subject: subject,
+        html: `<span>Dear Value Customer, </span>
+        <p>Order Tracking App has received your email.
+        Our Transportation Service team will get back to you in 24 hours
+        </p>
+        <p>Your message is : ${message}</p>
+        <h5>Best regards</h5>
+        <h5>Order Tracking Management Team</h5>
+      `,
+      
+    }
     // Create Transport
     var transporter = nodemailer.createTransport(transport);
-    // await new Promise((resolve,reject)=>{
-    //     transporter.verify((error,success)=>{
-    //         if(error){
-    //             console.log(error);
-    //             reject(error);
-    //         }
-    //         else{
-    //             console.log('Server is ready to take message');
-    //             resolve(success);
-    //         }
-    //     })
-    // })
-
-    transporter.sendMail(mail,(err,info)=>{
+    transporter.sendMail(options,(err,info)=>{
         if(err){
             console.log(err);
         }
