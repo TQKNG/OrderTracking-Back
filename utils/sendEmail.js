@@ -3,7 +3,7 @@ const { translateAliases } = require("../models/trackingModel");
 
 // Configure transport
 const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
-  var transport = {
+  const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: 587,
     auth: {
@@ -13,7 +13,8 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
     tls: {
       rejectUnauthorized: false,
     },
-  };
+  })
+
 
   // Option for sending email
   const options = {
@@ -33,12 +34,12 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
                 <h5>Order Tracking Management Team</h5>
             </body>
         </html>
-        
       `,
   };
-  // Create Transport
-  var transporter = nodemailer.createTransport(transport);
-  transporter.sendMail(options, (err, info) => {
+
+  
+  // Send Mail
+   transporter.sendMail(options, (err, info) => {
     if (err) {
       console.log(err);
     } else {
