@@ -79,27 +79,27 @@ route.post("/api/tracking/contact", async(req, res, next) => {
       }
   
       // Send auto-reply mail
-      sendEmail(
-        {
-          from: process.env.EMAIL_USER,
-          to: email,
-          subject: "Thank you for your email",
-          html: `<span>Dear Value Customer, </span>
-            <p>Order Tracking App has received your email.
-            Our Transportation Service team will get back to you in 24 hours
-            </p>
-            <h5>Best regards</h5>
-            <h5>Order Tracking Management Team</h5>
-          `,
-        },
-        (err, info) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(`Message sent: ${info.response}`);
-          }
-        }
-      );
+      // sendEmail(
+      //   {
+      //     from: process.env.EMAIL_USER,
+      //     to: email,
+      //     subject: "Thank you for your email",
+      //     html: `<span>Dear Value Customer, </span>
+      //       <p>Order Tracking App has received your email.
+      //       Our Transportation Service team will get back to you in 24 hours
+      //       </p>
+      //       <h5>Best regards</h5>
+      //       <h5>Order Tracking Management Team</h5>
+      //     `,
+      //   },
+      //   (err, info) => {
+      //     if (err) {
+      //       console.log(err);
+      //     } else {
+      //       console.log(`Message sent: ${info.response}`);
+      //     }
+      //   }
+      // );
     });
 });
 
