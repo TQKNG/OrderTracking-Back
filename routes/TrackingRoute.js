@@ -1,6 +1,6 @@
 const Tracking = require("../models/trackingModel");
 const route = require("express").Router();
-const transporter = require("../utils/sendEmail");
+const sendEmail = require("../utils/sendEmail");
 
 route.get("/api/tracking", (req, res) => {
   Tracking.find({})
@@ -58,7 +58,7 @@ route.put("/api/tracking/:id", (req, res) => {
 });
 
 // email route
-route.post("/api/tracking/contact", async(req, res, next) => {
+route.post("/api/tracking/contact", (req, res, next) => {
   const{email, message} = req.body;
 
   var mail = {
@@ -69,8 +69,9 @@ route.post("/api/tracking/contact", async(req, res, next) => {
   };
 
   // // Send Mail
-  await new Promise((resolve, reject)=>{
-    transporter.sendMail(mail, (err, data) => {
+
+ 
+    sendEmail(mail, (err, data) => {
       if (err) {
         res.status(500).json("Error during sending")
         reject();
@@ -102,8 +103,6 @@ route.post("/api/tracking/contact", async(req, res, next) => {
         }
       );
     });
-  })
-
 });
 
 
