@@ -58,7 +58,7 @@ route.put("/api/tracking/:id", (req, res) => {
 });
 
 // email route
-route.post("/api/tracking/contact", (req, res, next) => {
+route.post("/api/tracking/contact", async(req, res, next) => {
   const{email, message} = req.body;
 
   var mail = {
@@ -69,7 +69,7 @@ route.post("/api/tracking/contact", (req, res, next) => {
   };
 
   // // Send Mail
-    sendEmail(mail, (err, data) => {
+  await sendEmail(mail, (err, data) => {
       if (err) {
         res.status(500).json("Error during sending")
         reject();
