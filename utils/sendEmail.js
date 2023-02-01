@@ -45,8 +45,6 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
       console.log(info);
     }
   });
-
-  transporter.sendMail();
 };
 
 module.exports = sendEmail;
