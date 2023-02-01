@@ -79,7 +79,7 @@ route.post("/api/tracking/contact", (req, res, next) => {
       }
   
       // Send auto-reply mail
-      sendEMail(
+      sendEmail(
         {
           from: process.env.EMAIL_USER,
           to: email,
