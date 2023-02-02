@@ -39,7 +39,7 @@ const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
 
   
   // Send Mail
-   transporter.sendMail(options, (err, info) => {
+   await transporter.sendMail(options, (err, info) => {
     if (err) {
       console.log(err);
     } else {
