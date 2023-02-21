@@ -41,8 +41,8 @@ route.post("/api/tracking", (req, res) => {
 route.delete("/api/tracking/:id", (req, res) => {
   const id = req.params.id;
   Tracking.findByIdAndDelete(id)
-    .then(() => {
-      res.status(200).json("Tracking Item is deleted");
+    .then((data) => {
+      res.status(200).json(data);
     })
     .catch((err) => {
       res.status(500).json(`Interal Server Error: ${err}`);
@@ -53,8 +53,8 @@ route.put("/api/tracking/:id", (req, res) => {
   const id = req.params.id;
   const data = req.body;
 
-  Tracking.findByIdAndUpdate(id, data).then(() => {
-    res.status(200).json("Tracking Item is update");
+  Tracking.findByIdAndUpdate(id, data,{returnDocument: "after"}).then((data) => {
+    res.status(200).json(data);
   });
 });
 
