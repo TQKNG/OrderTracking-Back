@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-const { translateAliases } = require("../models/trackingModel");
 
 // Configure transport
 const sendEmail = async (subject, message, send_to, sent_from, reply_to) => {
