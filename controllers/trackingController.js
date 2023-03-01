@@ -10,16 +10,16 @@ const getAllTracking = (req,res)=>{
     });
 }
 
-const getTrackingById =(req,res)=>{
-    const id = req.params.id;
-    Tracking.findById(id)
-      .then((data) => {
-        res.status(200).json(data);
-      })
-      .catch((err) => {
-        res.status(500).json(`Interal Server Error: ${err}`);
-      });
-}
+// const getTrackingById =(req,res)=>{
+//     const id = req.params.id;
+//     Tracking.findById(id)
+//       .then((data) => {
+//         res.status(200).json(data);
+//       })
+//       .catch((err) => {
+//         res.status(500).json(`Interal Server Error: ${err}`);
+//       });
+// }
 
 const addTracking = (req,res)=>{
     const input = req.body;
@@ -57,7 +57,7 @@ const updateTracking = (req,res)=>{
 
 module.exports ={
     getAllTracking,
-    getTrackingById,
+    // getTrackingById,
     addTracking,
     deleteTracking,
     updateTracking
