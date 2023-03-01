@@ -1,28 +1,30 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 
-// Configure transport
-var transport = {
-    host: process.env.EMAIL_HOST,
-    port: 587,
-    auth:{
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+const sendMail = async(req,res)=>{
+    const{email, message} = req.body;
+    sgMail.setApiKey('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');
+    const mail ={
+      to: email,
+      from: process.env.EMAIL_USER,
+      subject:`New Message from Order Tracking Team Contact Form`,
+      html: `<span>Dear Value Customer, </span>
+      <p>Order Tracking App has received your email.
+      Our Transportation Service team will get back to you in 24 hours
+      </p>
+      <p>Your message is : ${message}</p>
+      <h5>Best regards</h5>
+      <h5>Order Tracking Management Team</h5>`
     }
+  
+    await sgMail
+    .send(mail)
+    .then(()=>{
+      res.status(200).json({success:true, message: "Email sent"});
+      console.log('Email sent')
+    })
+    .catch((err)=>{
+      throw Error(`Email not sent please try again ${err}`)
+    })
 }
 
-// Create Transport
-var transporter = nodemailer.createTransport(transport);
-transporter.verify((error,success)=>{
-    if(error){
-        console.log(error);
-    }
-    else{
-        console.log('Server is ready to take message');
-    }
-})
-
-module.exports = transporter;
-
-
-
-
+module.exports = sendMail
