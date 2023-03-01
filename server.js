@@ -5,6 +5,7 @@ const dotenv = require('dotenv').config();
 const HTTP_PORT = process.env.HTTP_PORT || 5050;
 const trackingRoute = require('./routes/trackingRoute');
 const contactRoute = require('./routes/contactRoute');
+const userRoute = require('./routes/userRoute')
 const mongoose = require('mongoose');
 
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cors({
 }));
 app.use('/api/tracking',trackingRoute);
 app.use('/api/contact',contactRoute);
+app.use('/api/user',userRoute);
 
 app.get('/',(req,res)=>{
     res.json("Hello To Order Tracking App")
