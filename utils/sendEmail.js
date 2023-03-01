@@ -1,4 +1,5 @@
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require("nodemailer");
+const { translateAliases } = require("../models/trackingModel");
 
 const sendMail = async(req,res)=>{
     const{email, message} = req.body;
