@@ -13,8 +13,8 @@ app.use(cors({
     origin:['http://localhost:3000','https://ordertracking-app.vercel.app'],
     credentials:true,
 }));
-app.use('/api/tracking',trackingRoute);
-app.use('/api/contact',contactRoute);
+app.use('/api/tracking',trackingService);
+app.use('/api/contact',contactService);
 // app.use('/api/user',userRoute);
 
 app.get('/',(req,res)=>{
