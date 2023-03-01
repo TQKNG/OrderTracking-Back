@@ -1,13 +1,13 @@
 const {getAllTracking, addTracking, deleteTracking, updateTracking} = require("../controllers/trackingController")
-const route = require("express").Router();
+const router = require("express").Router();
 
-route.get("/", getAllTracking);
+router.get("/", getAllTracking);
 // route.get("/:id", getTrackingById);
-route.post("/", addTracking);
-route.delete("/:id", deleteTracking);
-route.put("/:id", updateTracking);
+router.post("/", addTracking);
+router.delete("/:id", deleteTracking);
+router.put("/:id", updateTracking);
 
-module.exports = route;
+module.exports = router;
 
 
 
