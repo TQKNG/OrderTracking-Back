@@ -4,7 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv').config();
 const HTTP_PORT = process.env.HTTP_PORT || 5050;
 const trackingService = require('./routes/TrackingRoute.js');
-// const contactService = require('./routes/contactRoute.js');
+const contactService = require('./routes/ContactRoute.js');
 // const userRoute = require('./routes/userRoute')
 const mongoose = require('mongoose');
 
@@ -14,7 +14,7 @@ app.use(cors({
     credentials:true,
 }));
 app.use('/api/tracking',trackingService);
-// app.use('/api/contact',contactService);
+app.use('/api/contact',contactService);
 // app.use('/api/user',userRoute);
 
 app.get('/',(req,res)=>{
