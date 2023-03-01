@@ -59,8 +59,14 @@ route.put("/api/tracking/:id", (req, res) => {
 });
 
 // email route
-route.post("/contact", async(req, res) => {
+route.post("/api/tracking/contact", async(req, res) => {
   const{email, message} = req.body;
+  // const send_to = process.env.EMAIL_USER;
+  // const sent_from = process.env.EMAIL_USER;
+  // const reply_to = email;
+  // const subject = `New Message from ${email} Contact Form`;
+  // // Send Mail
+  // With sendGrid
   sgMail.setApiKey('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');
   const mail ={
     to: email,
@@ -84,6 +90,16 @@ route.post("/contact", async(req, res) => {
   .catch((err)=>{
     throw Error(`Email not sent please try again ${err}`)
   })
+
+
+
+  // try{
+  //   await sendEmail(subject, message, send_to, sent_from, reply_to);
+  //   res.status(200).json({success:true, message: "Email sent"});
+  // }
+  // catch(err){
+  //   throw Error('Email not sent please try again')
+  // }
 });
 
 
