@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv').config();
 const HTTP_PORT = process.env.HTTP_PORT || 5050;
-const trackingRoute = require('./routes/trackingRoute');
+const tracking = require('./routes/trackingRoute');
 // const contactRoute = require('./routes/contactRoute');
 // const userRoute = require('./routes/userRoute')
 const mongoose = require('mongoose');
@@ -13,7 +13,7 @@ app.use(cors({
     origin:['http://localhost:3000','https://ordertracking-app.vercel.app'],
     credentials:true,
 }));
-app.use('/api/tracking',trackingRoute);
+app.use('/api/tracking',tracking);
 // app.use('/api/contact',contactRoute);
 // app.use('/api/user',userRoute);
 
