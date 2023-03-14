@@ -67,27 +67,26 @@ const loginUser = async (req, res) => {
     throw new Error("Please add username and password");
   }
 
-  User.findOne({ username })
-    .then((user) => {
-      // If user exist, check passwords
-      const passwordIsCorrect = bcrypt.compare(password, user.password);
-      if (!passwordIsCorrect) {
-        return res.status(400).json("Password is not correct");
+  try {
+    const user = await User.findOne({ username });
+    // If user exist, check passwords
+    const passwordIsCorrect = await bcrypt.compare(password, user.password);
+    if (!passwordIsCorrect) {
+      res.status(400).json("Password is not correct");
+    } else {
+      if (user && passwordIsCorrect) {
+        const { _id, username } = user;
+        return res.status(200).json({
+          _id,
+          username,
+        });
       } else {
-        if (user && passwordIsCorrect) {
-          const { _id, username } = user;
-          res.status(200).json({
-            _id,
-            username,
-          });
-        } else {
-          res.status(400).json("Invalid Email or Password");
-        }
+        res.status(400).json("Invalid Email or Password");
       }
-    })
-    .catch((err) => {
-      res.status(400).json("Invalid Email or Password");
-    });
+    }
+  } catch (err) {
+    res.status(400).json("Invalid Email or Password");
+  }
 };
 
 // Logout User
